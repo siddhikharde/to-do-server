@@ -64,6 +64,25 @@ app.delete("/todos",(req,res)=>{
         })
     }
 })
+
+app.put("/todos",(req,res)=>{
+    const {oldTodoItem, newTodoItem}=req.body;
+    const index = TODO_ITEMS.indexOf(oldTodoItem);
+    if(index>-1){
+        TODO_ITEMS[index]=newTodoItem;
+        return res.json({
+            success:true,
+            data:TODO_ITEMS,
+            message:"Todo item updated successfully",
+        })
+    }
+    else{
+        return res.json({
+            success:false,
+            message:"Todo item not found",
+        })
+    }
+})
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
