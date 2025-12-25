@@ -43,6 +43,27 @@ app.post("/todos", (req, res) => {
     }
 
 })
+
+app.delete("/todos",(req,res)=>{
+    const {todoItem}=req.body;
+    const index=TODO_ITEMS.indexOf(todoItem);
+    if(index>-1){
+        TODO_ITEMS.splice(index,1);
+        return res.json({
+            success:true,
+            data:TODO_ITEMS,
+            message:"Todo item deleted succesfully",
+            deletedItem:todoItem,
+        })
+
+    }
+    else{
+        return res.json({
+            status:false,
+            message:"Todo item not found",
+        })
+    }
+})
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
